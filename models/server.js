@@ -1,5 +1,3 @@
-//Configuración del server
-//Importaciones básicas
 const express = require('express');
 const cors = require('cors');
 const { dbConection } = require('../database/config');
@@ -11,14 +9,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
 
-    	// this.authPath = '/api/auth';
-        // this.usuarioPath = '/api/usuarios';
-        // this.categoriaPath = '/api/categorias';
-
         this.paths = {
             auth: '/api/auth',
             empresa: '/api/empresa',
-            sucursales: '/api/sucursal'
+            sucursal: '/api/sucursal'
         }
 
         //Conectar a base de datos
@@ -48,15 +42,15 @@ class Server {
         this.app.use( express.json() );
 
         //Directorio publico del proyecto
-        this.app.use(  express.static('public') );
+        this.app.use( express.static('public') );
 
     }
 
 
     routes(){
-        this.app.use( this.paths.auth , require('../routes/auth') );
+        this.app.use( this.paths.auth, require('../routes/auth') );
         this.app.use( this.paths.empresa, require('../routes/empresa') );
-        this.app.use( this.paths.sucursales, require('../routes/sucursale'))
+        this.app.use( this.paths.sucursal, require('../routes/sucursale'))
     }
 
 

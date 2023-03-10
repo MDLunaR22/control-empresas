@@ -18,23 +18,23 @@ const validarJWT = async( req = request, res = response, next ) => {
         const { uid } = jwt.verify( token, process.env.SECRET_OR_PRIVATE_KEY );
 
         //leer al usuario que corresponda el uid
-        const persona = await Empresa.findById( uid );
+        const empresa = await Empresa.findById( uid );
 
         //Verificar el uid del usuario, si no existiera
-        if ( !persona ) {
+        if ( !empresa ) {
             return res.status(401).json({
-                msg: 'Token no válido - Usuario no existe en la base de datos'
+                msg: 'Token no válido - La empresa no existe en la base de datos'
             });
         }
 
         //Verificar si el uid esta en estado: true
-        if ( !persona.estado ) {
+        if ( !empresa.estado ) {
             return res.status(401).json({
-                msg: 'Token no válido - Persona inactiva : Estado FALSE'
+                msg: 'Token no válido - Estado FALSE'
             });
         }
 
-        req.usuario = persona;
+        req.empresa = empresa;
         next();
         
     } catch (error) {

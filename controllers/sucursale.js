@@ -96,7 +96,7 @@ const asignacionSucursal = async (req = request, res = response) => {
         var existeSucursal = sucursal;
     } if (existeSucursal)
         return res.status(400).json({
-            msg: 'ya estas asignado a este curso'
+            msg: 'Esta sucursal ya esta asignada a esta empresa'
         })
 
     const empresaDB = await Empresa.findOneAndUpdate(
